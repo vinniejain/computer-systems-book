@@ -1,0 +1,17 @@
+Perform the following number conversions:
+
+A. 0x8F7A93 to binary
+
+     8    F    7    A    9    3
+  1000 1111 0111 1010 1001 0011
+
+  Answer: 100011110111101010010011
+
+B. Binary 1011011110011100 to hexadecimal
+
+  1011 0111 1001 1100
+     B    7    9    C
+
+  Answer: 0xB79C
+
+

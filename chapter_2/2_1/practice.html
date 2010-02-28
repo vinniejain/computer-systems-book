@@ -287,7 +287,7 @@ conv.checkSolution = function ( event ) {
   returnHTML = [ ];
   solutionString = conv.getSolutionForProblem( );
   userSolution = $.trim( $( "#solutionInput" ).val( ) );
-  if ( userSolution === solutionString ) {
+  if ( userSolution.toLowerCase( ) === solutionString.toLowerCase( ) ) {
     returnHTML.push( '<span class="right">Right answer.</span><br/>' );
   } else {
     returnHTML.push( '<span class="wrong">Wrong answer.</span><br/>' );

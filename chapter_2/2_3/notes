@@ -1,0 +1,12 @@
+To convert decimal value x to hexadecimal, we repeatedly devide by 16 giving a quotent q and a reamainder r such that x = q * 16 + 4
+r becomes the *least* signficant digit for the hexadecimal value
+
+As an example: x = 314156
+
+  314145 = 19634 * 16 + 12 (C)
+   19634 = 1227 * 16 + 2   (2)
+    1227 = 76 * 16 + 11    (B)
+      76 = 4 * 16 + 12     (C)
+       4 = 0 * 16 + 4      (4)
+
+314156 in hexadecimal is 0x4CB2C

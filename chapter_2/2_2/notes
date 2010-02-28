@@ -1,0 +1,23 @@
+Given that x in decimal form is a power of 2: x = 2 ^ n
+
+Binary form of x is 1 followed by n 0's
+
+Hexadecimal form of x is:
+  write n in the form of i + 4j where 0 <= i <= 3
+  i is the is a key to get the digit of the hexadecimal form, followed by j 0's
+  to get the first digit of the hexadecimal form:
+    if i = 0: first digit is 1
+    if i = 1: first digit is 2
+    if i = 2: first digit is 4
+    if i = 3: first digit is 8
+
+Example:
+
+x = 2048
+x = 2^11
+
+n      = 11
+i + 4j = 11 where 0 <= i <= 3
+    4*2 = 8 + 3 = 11
+i = 3, j = 2;
+answer is: 0x800

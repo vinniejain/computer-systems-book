@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Binary to Hexadecimal and Hexadecimal to Binary Conversion Practice</title>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js" type="text/javascript"></script>
+  <style type="text/css">
+  </style>
+</head>
+<body>
+  <h1>Binary to Hexadecimal and Hexadecimal to Binary Conversion Practice</h1>
+  <h2>Generate Problem:</h2>
+  <form id="problemGenerator">
+    <h3>Conversion Type</h3>
+    <p>
+      <label for="hexToBinary">Hex to Binary</label><input value="hexToBin" checked="checked" id="hexToBinary" type="radio" name="conversionType" />
+    </p>
+    <p>
+      <label for="binaryToHex">Binary to Hex</label><input value="binToHex" id="binaryToHex" type="radio" name="conversionType" />
+    </p>
+    <h3>Number of Bytes</h3>
+    <p>
+      <label for="oneByte">One byte</label><input id="oneByte" value="1" checked="checked" type="radio" name="numBytes" />
+    </p>
+    <p>
+      <label for="twoBytes">Two bytes</label><input id="twoBytes" value="2" type="radio" name="numBytes" />
+    </p>
+    <p>
+      <label for="threeBytes">Three bytes</label><input id="threeBytes" value="3" type="radio" name="numBytes" />
+    </p>
+    <p>
+      <label for="fourBytes">Four bytes</label><input id="fourBytes" value="4" type="radio" name="numBytes" />
+    </p>
+    <p><input type="submit" value="Generate Problem" name="Generate Problem" /></p>
+  </form>
+  <h2>Problem:</h2>
+  <p id="problemView"></p>
+  <div id="workspaceContainer" class="hidden">
+    <h2>Check Solution</h2>
+    <form id="solutionChecker">
+      <h3>Scratch Pad</h3>
+      <p>
+        <label>Scratch pad form is not checked, just a place to work out your solution</label><br />
+        <textarea cols="100" rows="10" id="scratchPad"></textarea>
+      </p>
+      <h3>Your Solution</h3>
+      <p>
+        <input type="text" id="solutionInput" />
+      </p>
+      <p>Please separate bytes with a space and add leading 0's so that hex bytes always have two digits and binary bytes have eight.</p>
+      <p><input type="submit" value="Check Solution" name="Check Solution" /></p>
+    </form>
+  </div>
+  <div id="solutionContainer" class="hidden">
+    <h2>Problem Solution</h2>
+    <p id="solutionView"></p>
+  </div>
+  <script type="text/javascript">
+
+var conv;
+conv = { };
+
+conv.init = function ( ) {
+  conv.bindUI( );
+};
+
+conv.CONSTANTS = {
+  CONVERSION_TYPE: {
+    HEX_TO_BIN: "hexToBin",
+    BIN_TO_HEX: "binToHex"
+  }
+};
+
+conv.conversionType = null;
+
+conv.generateProblem = function ( event ) {
+
+  var numBytes;
+
+  event.preventDefault( );
+  event.stopPropagation( );
+
+  if ( $( "#oneByte" ).get( 0 ).checked === true ) {
+    numBytes = 1;
+  } else if ( $( "#twoBytes" ).get( 0 ).checked === true ) {
+    numBytes = 2;
+  } else if ( $( "#threeBytes" ).get( 0 ).checked === true ) {
+    numBytes = 3;
+  } else {
+    numBytes = 4;
+  }
+  if ( $( "#hexToBinary" ).get( 0 ).checked === true ) {
+    conv.conversionType = conv.CONSTANTS.HEX_TO_BIN;
+    conv.generateHexToBinProblem( numBytes );
+  } else {
+    conv.conversionType = conv.CONSTANTS.BIN_TO_HEX;
+    conv.generateBinToHexProblem( numBytes );
+  }
+};
+
+conv.hexToBinProblem = null;
+conv.binToHexProblem = null;
+
+conv.generateHexToBinProblem = function ( numBytes ) {
+
+  var problemR, i, val, problemHTML;
+
+  conv.clearWorkSpace( );
+  problemR = [ ];
+  problemHTML = [ ];
+  for ( i = 0; i < numBytes; i++ ) {
+    val = conv.getRandom( 0, 255 );
+    problemR.push( val );
+    val = val.toString( 16 );
+    if ( val.length === 1 ) {
+      val = "0" + val;
+    }
+    problemHTML.push( val )
+  }
+  console.dir( problemR );
+  $( "#problemView" ).html( problemHTML.join( " " ) );
+
+};
+
+conv.generateBinToHexProblem = function ( numBytes ) {
+  conv.clearWorkSpace( );
+};
+
+conv.getRandom = function ( min, max ) {
+  return Math.floor( Math.random( ) * ( max - min + 1 ) ) + min;
+}
+
+conv.clearWorkSpace = function ( ) {
+  conv.hexToBinProblem = null;
+  conv.binToHexProblem = null;
+  $( "#problemView" ).html( "" );
+  $( "#workspaceContainer" ).removeClass( "hidden" );
+  $( "#scratchPad" ).value = "";
+  $( "#solutionInput" ).value = "";
+  $( "#solutionView" ).html( "" );
+};
+
+conv.checkSolution = function ( event ) {
+  event.preventDefault( );
+  event.stopPropagation( );
+};
+
+conv.bindUI = function ( ) {
+  $( "#problemGenerator" ).bind( "submit", conv.generateProblem );
+  $( "#solutionChecker" ).bind( "submit", conv.checkSolution );
+};
+
+$( document ).ready( conv.init );
+
+  </script>
+</body>
+</html>

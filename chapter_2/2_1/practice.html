@@ -79,6 +79,7 @@ conv.generateProblem = function ( event ) {
   event.preventDefault( );
   event.stopPropagation( );
 
+  conv.conversionType = null;
   if ( $( "#oneByte" ).get( 0 ).checked === true ) {
     numBytes = 1;
   } else if ( $( "#twoBytes" ).get( 0 ).checked === true ) {
@@ -89,18 +90,25 @@ conv.generateProblem = function ( event ) {
     numBytes = 4;
   }
   if ( $( "#hexToBinary" ).get( 0 ).checked === true ) {
-    conv.conversionType = conv.CONSTANTS.HEX_TO_BIN;
+    conv.conversionType = conv.CONSTANTS.CONVERSION_TYPE.HEX_TO_BIN;
     conv.generateHexToBinProblem( numBytes );
   } else {
-    conv.conversionType = conv.CONSTANTS.BIN_TO_HEX;
+    conv.conversionType = conv.CONSTANTS.CONVERSION_TYPE.BIN_TO_HEX;
     conv.generateBinToHexProblem( numBytes );
   }
 };
 
-conv.hexToBinProblem = null;
-conv.binToHexProblem = null;
+conv.problem = null;
 
 conv.generateHexToBinProblem = function ( numBytes ) {
+  conv.generateAnyProblem( numBytes, 16 );
+};
+
+conv.generateBinToHexProblem = function ( numBytes ) {
+  conv.generateAnyProblem( numBytes, 2 );
+};
+
+conv.generateAnyProblem = function ( numBytes, base ) {
 
   var problemR, i, val, problemHTML;
 
@@ -110,28 +118,55 @@ conv.generateHexToBinProblem = function ( numBytes ) {
   for ( i = 0; i < numBytes; i++ ) {
     val = conv.getRandom( 0, 255 );
     problemR.push( val );
-    val = val.toString( 16 );
-    if ( val.length === 1 ) {
+    val = val.toString( base );
+    if ( base === 16 && val.length === 1 ) {
       val = "0" + val;
+    } else if( base === 2 ) {
+      while ( val.length < 8 ) {
+        val = "0" + val;
+      }
     }
     problemHTML.push( val )
   }
   console.dir( problemR );
+  conv.problem = problemR;
   $( "#problemView" ).html( problemHTML.join( " " ) );
 
 };
 
-conv.generateBinToHexProblem = function ( numBytes ) {
-  conv.clearWorkSpace( );
-};
-
 conv.getRandom = function ( min, max ) {
   return Math.floor( Math.random( ) * ( max - min + 1 ) ) + min;
-}
+};
+
+conv.getSolutionForProblem = function ( ) {
+
+  var i, problemString, val, base;
+
+  console.log( "conv.conversionType:", conv.conversionType );
+  problemString = [ ];
+  if ( conv.conversionType === conv.CONSTANTS.CONVERSION_TYPE.BIN_TO_HEX ) {
+    base = 16;
+  } else {
+    base = 2;
+  }
+  for ( i = 0; i < conv.problem.length; i++ ) {
+    val = conv.problem[ i ];
+    val = val.toString( base );
+    if ( base === 16 && val.length === 1 ) {
+      val = "0" + val;
+    } else if( base === 2 ) {
+      while ( val.length < 8 ) {
+        val = "0" + val;
+      }
+    }
+    problemString.push( val )
+  }
+  return problemString.join( " " );
+
+};
 
 conv.clearWorkSpace = function ( ) {
-  conv.hexToBinProblem = null;
-  conv.binToHexProblem = null;
+  conv.problem = null;
   $( "#problemView" ).html( "" );
   $( "#workspaceContainer" ).removeClass( "hidden" );
   $( "#scratchPad" ).value = "";
@@ -140,8 +175,29 @@ conv.clearWorkSpace = function ( ) {
 };
 
 conv.checkSolution = function ( event ) {
+
+  var solutionString, userSolution, returnHTML;
+
   event.preventDefault( );
   event.stopPropagation( );
+
+  returnHTML = [ ];
+  solutionString = conv.getSolutionForProblem( );
+  userSolution = $.trim( $( "#solutionInput" ).val( ) );
+  if ( userSolution === solutionString ) {
+    returnHTML.push( '<span class="right">Right answer.</span><br/>' );
+  } else {
+    returnHTML.push( '<span class="wrong">Wrong answer.</span><br/>' );
+  }
+  returnHTML.push( [
+    '<span class="computedSolution">',
+    solutionString,
+    ' &lt;-- computed solution.</span><br/>',
+    '<span class="computedSolution">',
+    userSolution,
+    ' &lt;-- your solution.</span>'
+  ].join( "" ) );
+  $( "#solutionView" ).html( returnHTML.join( "" ) );
 };
 
 conv.bindUI = function ( ) {

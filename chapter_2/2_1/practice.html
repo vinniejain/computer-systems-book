@@ -21,6 +21,14 @@ body {
   background: #000;
   color: #FEFF9F;
 }
+a {
+  color: #FEFF9F;
+}
+#footer {
+  text-align: center;
+  padding: 5px;
+  background: #554359;
+}
 #content {
   width: 800px;
   margin: 25px auto;
@@ -132,6 +140,7 @@ input.text {
           <label class="notice">Scratch pad form is not checked, just a place to work out your solution</label><br />
           <textarea cols="100" rows="10" id="scratchPad"></textarea>
         </p>
+        <p><a target="_blank" href="http://blog.apphackers.com/2010/02/26/binary-decimal-and-hexadecimal-conversion/">Conversion table</a></p>
         <h3>Your Solution</h3>
         <p>
           <input class="text" type="text" id="solutionInput" />
@@ -143,6 +152,9 @@ input.text {
     <div id="solutionContainer" class="hidden">
       <h2>Problem Solution</h2>
       <p id="solutionView"></p>
+    </div>
+    <div id="footer">
+      Created by <a href="http://blog.apphackers.com">Apphacker</a> | <a href="http://code.google.com/p/computer-systems-book/source/checkout">Source</a>
     </div>
   </div>
   <script type="text/javascript">
@@ -219,7 +231,6 @@ conv.generateAnyProblem = function ( numBytes, base ) {
     }
     problemHTML.push( val )
   }
-  console.dir( problemR );
   conv.problem = problemR;
   $( "#problemView" ).html( problemHTML.join( " " ) );
 
@@ -233,7 +244,6 @@ conv.getSolutionForProblem = function ( ) {
 
   var i, problemString, val, base;
 
-  console.log( "conv.conversionType:", conv.conversionType );
   problemString = [ ];
   if ( conv.conversionType === conv.CONSTANTS.CONVERSION_TYPE.BIN_TO_HEX ) {
     base = 16;

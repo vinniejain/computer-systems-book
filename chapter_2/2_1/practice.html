@@ -4,55 +4,146 @@
   <title>Binary to Hexadecimal and Hexadecimal to Binary Conversion Practice</title>
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js" type="text/javascript"></script>
   <style type="text/css">
+/*
+COLORS:
+GRAY: #5E6E7B;
+BLACK: #13253D;
+YELLOW: #FEFF9F;
+RED: #E8515B;
+GREEN: #51E853;
+PURPLE: #554359;
+*/
+* { padding: 0px; margin: 0px; }
+body {
+  font-family: "Verdana", "Arial", sans-serif;
+  font-size: 11px;
+  text-align: auto;
+  background: #000;
+  color: #FEFF9F;
+}
+#content {
+  width: 800px;
+  margin: 25px auto;
+  text-align: left;
+  background: #13253d;
+}
+h1 {
+  font-size: 14px;
+  text-align: center;
+  background: #554359;
+}
+h2 {
+  font-size: 13px;
+}
+h3 {
+  font-size: 12px;
+}
+p, h1, h2, h3 {
+  padding: 5px;
+}
+.notice {
+  font-style: italic;
+}
+input {
+  margin: 0px 5px;
+}
+textarea {
+  margin: 10px;
+  background: #5E6E7B;
+  border: 0px;
+  outline-width: 0px;
+  padding: 5px;
+  width: 760px;
+  color: #FEFF9F;
+  font-size: 12px;
+}
+input.text {
+  margin: 10px;
+  background: #5E6E7B;
+  border: 0px;
+  outline-width: 0px;
+  padding: 5px;
+  width: 760px;
+  line-height: 150%;
+  color: #FEFF9F;
+  font-size: 12px;
+}
+#problemContainer {
+  margin: 10px 0px;
+}
+#problemView {
+  font-size: 20px;
+  text-align: center;
+  background: #554359;
+}
+.right, .wrong {
+  display: inline-block;
+  font-size: 13px;
+  font-weight: bold;
+  margin: 10px 0px;
+  padding: 5px 15px;
+}
+.wrong {
+  color: #E8515B;
+}
+.right {
+  color: #51E853;
+}
+#solutionComparison {
+  padding: 10px;
+  background: #554359;
+}
+#problemView, .computedSolution, .userSolution, #solutionInput, textarea {
+  font-family: "Courier", monospace;
+}
+.hidden {
+  display: none !important;
+}
   </style>
 </head>
 <body>
-  <h1>Binary to Hexadecimal and Hexadecimal to Binary Conversion Practice</h1>
-  <h2>Generate Problem:</h2>
-  <form id="problemGenerator">
-    <h3>Conversion Type</h3>
-    <p>
-      <label for="hexToBinary">Hex to Binary</label><input value="hexToBin" checked="checked" id="hexToBinary" type="radio" name="conversionType" />
-    </p>
-    <p>
-      <label for="binaryToHex">Binary to Hex</label><input value="binToHex" id="binaryToHex" type="radio" name="conversionType" />
-    </p>
-    <h3>Number of Bytes</h3>
-    <p>
-      <label for="oneByte">One byte</label><input id="oneByte" value="1" checked="checked" type="radio" name="numBytes" />
-    </p>
-    <p>
-      <label for="twoBytes">Two bytes</label><input id="twoBytes" value="2" type="radio" name="numBytes" />
-    </p>
-    <p>
-      <label for="threeBytes">Three bytes</label><input id="threeBytes" value="3" type="radio" name="numBytes" />
-    </p>
-    <p>
-      <label for="fourBytes">Four bytes</label><input id="fourBytes" value="4" type="radio" name="numBytes" />
-    </p>
-    <p><input type="submit" value="Generate Problem" name="Generate Problem" /></p>
-  </form>
-  <h2>Problem:</h2>
-  <p id="problemView"></p>
-  <div id="workspaceContainer" class="hidden">
-    <h2>Check Solution</h2>
-    <form id="solutionChecker">
-      <h3>Scratch Pad</h3>
+  <div id="content">
+    <h1>Binary to Hexadecimal and Hexadecimal to Binary Conversion Practice</h1>
+    <h2>Generate Problem:</h2>
+    <form id="problemGenerator">
+      <h3>Conversion Type</h3>
       <p>
-        <label>Scratch pad form is not checked, just a place to work out your solution</label><br />
-        <textarea cols="100" rows="10" id="scratchPad"></textarea>
+        <input value="hexToBin" checked="checked" id="hexToBinary" type="radio" name="conversionType" /><label for="hexToBinary">Hex to Binary</label>
+        <input value="binToHex" id="binaryToHex" type="radio" name="conversionType" /><label for="binaryToHex">Binary to Hex</label>
       </p>
-      <h3>Your Solution</h3>
+      <h3>Number of Bytes</h3>
       <p>
-        <input type="text" id="solutionInput" />
+        <input id="oneByte" value="1" checked="checked" type="radio" name="numBytes" /><label for="oneByte">One byte</label>
+        <input id="twoBytes" value="2" type="radio" name="numBytes" /><label for="twoBytes">Two bytes</label>
+        <input id="threeBytes" value="3" type="radio" name="numBytes" /><label for="threeBytes">Three bytes</label>
+        <input id="fourBytes" value="4" type="radio" name="numBytes" /><label for="fourBytes">Four bytes</label>
       </p>
-      <p>Please separate bytes with a space and add leading 0's so that hex bytes always have two digits and binary bytes have eight.</p>
-      <p><input type="submit" value="Check Solution" name="Check Solution" /></p>
+      <p><input type="submit" value="Generate Problem" name="Generate Problem" /></p>
     </form>
-  </div>
-  <div id="solutionContainer" class="hidden">
-    <h2>Problem Solution</h2>
-    <p id="solutionView"></p>
+    <div id="problemContainer" class="hidden">
+      <h2>Problem:</h2>
+      <p id="problemView"></p>
+    </div>
+    <div id="workspaceContainer" class="hidden">
+      <h2>Check Solution</h2>
+      <form id="solutionChecker">
+        <h3>Scratch Pad</h3>
+        <p>
+          <label class="notice">Scratch pad form is not checked, just a place to work out your solution</label><br />
+          <textarea cols="100" rows="10" id="scratchPad"></textarea>
+        </p>
+        <h3>Your Solution</h3>
+        <p>
+          <input class="text" type="text" id="solutionInput" />
+        </p>
+        <p class="notice">Please separate bytes with a space and add leading 0's so that hex bytes always have two digits and binary bytes have eight.</p>
+        <p><input type="submit" value="Check Solution" name="Check Solution" /></p>
+      </form>
+    </div>
+    <div id="solutionContainer" class="hidden">
+      <h2>Problem Solution</h2>
+      <p id="solutionView"></p>
+    </div>
   </div>
   <script type="text/javascript">
 
@@ -169,6 +260,8 @@ conv.clearWorkSpace = function ( ) {
   conv.problem = null;
   $( "#problemView" ).html( "" );
   $( "#workspaceContainer" ).removeClass( "hidden" );
+  $( "#problemContainer" ).removeClass( "hidden" );
+  $( "#solutionContainer" ).addClass( "hidden" );
   $( "#scratchPad" ).value = "";
   $( "#solutionInput" ).value = "";
   $( "#solutionView" ).html( "" );
@@ -190,14 +283,17 @@ conv.checkSolution = function ( event ) {
     returnHTML.push( '<span class="wrong">Wrong answer.</span><br/>' );
   }
   returnHTML.push( [
-    '<span class="computedSolution">',
-    solutionString,
-    ' &lt;-- computed solution.</span><br/>',
-    '<span class="computedSolution">',
-    userSolution,
-    ' &lt;-- your solution.</span>'
+    '<div id="solutionComparison">',
+      '<span class="computedSolution">',
+      solutionString,
+      ' &lt;-- computed solution.</span><br/>',
+      '<span class="userSolution">',
+      userSolution,
+      ' &lt;-- your solution.</span>',
+    '</div>'
   ].join( "" ) );
   $( "#solutionView" ).html( returnHTML.join( "" ) );
+  $( "#solutionContainer" ).removeClass( "hidden" );
 };
 
 conv.bindUI = function ( ) {

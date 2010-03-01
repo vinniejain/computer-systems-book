@@ -1,0 +1,38 @@
+Using show_int and show_float we determine that the integer 3490593
+has hexadecimal representation 0x00354321, while the floating-point number
+3490593.0 has hexadecimal represntation 0x4A550C84.
+
+A. Write the binary representation of these two hexadecimal values.
+
+0x00354321
+
+   0    0    3    5    4    3    2    1
+
+0000 0000 0011 0101 0100 0011 0010 0001
+
+00000000 00110101 01000011 00100001
+
+0x4A550C84
+
+   4    A    5    5    0    C    8    4
+0100 1010 0101 0101 0000 1100 1000 0100
+
+01001010 01010101 00001100 10000100
+
+B. Shift these two strings relative to one another to maximize the number of
+matching bits.
+
+00000000001101010100001100100001
+  01001010010101010000110010000100
+           *********************
+           |----- matches -----|
+
+C. How many bits match? What parts of the strings do not match?
+
+  21 bits match
+
+  The beginnings and ends don't match. Most of the integer representation
+  is in the float except for the most signficant digit, which is 0001 (1)
+  instead of 0011 (3) in the int. There are also non-zero values at the
+  front of the float.
+

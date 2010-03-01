@@ -1,0 +1,49 @@
+Without converting the numbers to decimal or binary, try to solve the following
+arithmetic problems, giving the answers in hexadecimal. Hint: just modify
+the mothods you use for performing decimal addition and subtraction to use
+base 16.
+
+A. 0x502c + 0x8 =
+B. 0x502c - 0x30 =
+C. 0x502c + 64 =
+D. 0x50da - 0x502c =
+
+A. 0x502c + 0x8 =
+
+  0x502c
+  +  0x8
+  ------
+  0x5034
+
+B. 0x502c - 0x30 =
+
+  0x502c
+  - 0x30
+  ------
+  0x4ffc
+
+
+C. 0x502c + 64 =
+
+  64 = 4 * 16 + 0
+  4 = 0 * 16 + 4
+  64 = 0x40
+
+  0x502c
+  + 0x40
+  ------
+  0x506c
+
+
+D. 0x50da - 0x502c =
+
+  0x50da
+ -0x502c
+ -------
+    0xae
+
+A. 0x502c + 0x8 = 0x5034
+B. 0x502c - 0x30 = 0x4ffc
+C. 0x502c + 64 = 0x506c
+D. 0x50da - 0x502c = 0xae
+

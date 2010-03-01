@@ -1,0 +1,10 @@
+What would be printed as a result of the following call to show_bytes?
+
+char *s = "ABCDEF";
+show_bytes( s, strlen( s ) );
+
+
+Note that letters 'A' through 'Z" have ASCII codes 0x41 through 0x5A
+
+41 42 43 44 45 46
+

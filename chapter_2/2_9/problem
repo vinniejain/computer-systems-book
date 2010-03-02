@@ -1,0 +1,89 @@
+We can create eight different colors based on the absence (0) or presence
+(1) of light sources R, G, and B:
+
+  R  G  B  Color
+ ------------------
+  0  0  0  Black
+ ------------------
+  0  0  1  Blue
+ ------------------
+  0  1  0  Green
+ ------------------
+  0  1  1  Cyan
+ ------------------
+  1  0  0  Red
+ ------------------
+  1  0  1  Magenta
+ ------------------
+  1  1  0  Yellow
+ ------------------
+  1  1  1  White
+ ------------------
+
+This set of colros forms an eight-element Boolean algebra.
+
+A. The complement of a color is formed by turning off the lights that are on
+and turning on the lights that are off. What would be the complements of
+the eight colors listed above?
+
+B. What colors correspond to Boolean values 0^w and 1^w for this algebra?
+
+C Describe the effect of applying Boolean operations on the following colors:
+
+      Blue | Red   =
+   Magenta & Cyan  =
+     Green ^ White =
+
+A.
+
+  R  G  B  Color       R  G  B  Complement
+ -----------------------------------------
+  0  0  0  Black    =  1  1  1   White
+ ------------------------------------------
+  0  0  1  Blue     =  1  1  0   Yellow
+ ------------------------------------------
+  0  1  0  Green    =  1  0  1   Magenta
+ ------------------------------------------
+  0  1  1  Cyan     =  1  0  0   Red
+ ------------------------------------------
+  1  0  0  Red      =  0  1  1   Cyan
+ ------------------------------------------
+  1  0  1  Magenta  =  0  1  0   Green
+ ------------------------------------------
+  1  1  0  Yellow   =  0  0  1   Blue
+ ------------------------------------------
+  1  1  1  White    =  0  0  0   Black
+ ------------------------------------------
+
+
+B.
+
+  0^w is Black
+  1^w is White
+
+C.
+
+  Blue  |  Red =   0 0 1
+                   1 0 0
+                   -----
+                   1 0 1  = Magenta
+
+  Magenta & Cyan = 1 0 1
+                   0 1 1
+                   -----
+                   0 0 1  = Blue
+
+  Green ^ White  = 0 1 0
+                   1 1 1
+                   -----
+                   1 0 1  = Magenta
+
+
+
+
+
+
+
+
+
+

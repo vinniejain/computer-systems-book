@@ -1,0 +1,28 @@
+To show how the ring properties of ^ can be useful, consider the following
+program:
+
+
+void implace_swap( int *x, int *y ) {
+  *x = *x ^ *y; /* Step 1 */
+  *y = *x ^ *y; /* Step 2 */
+  *x = *x ^ *y; /* Step 3 */
+}
+
+Starting with values a and b in the locations pointed to by x and y,
+respectively, fill in the table that follows giving the values stored
+at the two locations after each step of the procedure. Use the ring
+properties to show that the desired effect is achieved. Recall that
+every element is its own additive inverse (that is, a ^ a = 0).
+
+
+Step           *x                  *y
+------------------------------------------------
+Initially       a                   b
+------------------------------------------------
+Step 1         a^b                  b
+------------------------------------------------
+Step 2         a^b            (a^b)^b=(b^b)^a=a
+------------------------------------------------
+Step 3    (a^b)^a=(a^a)^b=b         a
+------------------------------------------------
+

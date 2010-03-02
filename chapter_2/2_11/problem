@@ -1,0 +1,89 @@
+Write C expressions for the following values, with the result for x = 0x98FDECBA
+and a w 32-bit word size shown in square brackets:
+
+A. The least signficant byte of x, with all other bits set to 1 [0xFFFFFFBA].
+B. The complement of the least signficant byte of x, with all other bytes left
+   unchanged [0x98FDEC45].
+C. All but the least signficant byte of x, with the least signficant byte set to
+   0 [0x98FDEC00].
+
+Although our examples assume a 32-bit word size, your code should work for
+any word size w >= 8.
+
+
+A.
+      0x98FDECBA
+          ?
+    ------------
+      0xFFFFFFBA
+
+      0x98FDECBA
+    |      ~0xFF
+    ------------
+      0xFFFFFFBA
+
+    x | ~0xFF = 0xFFFFFFBA
+
+B.
+
+      0x98FDECBA
+          ?
+    ------------
+      0x98FDEC45
+
+      complement:
+      0^1 = 1
+      1^1 = 0
+
+      unchanged:
+      1^0 = 1
+      0^0 = 0
+
+      0x98FDECBA
+    ^       0xFF
+    ------------
+      0x98FDEC45
+
+    x ^ 0xFF = 0x98FDEC45
+
+C.
+
+      0x98FDECBA
+          ?
+    ------------
+      0x98FDEC00
+
+      possible operations:
+
+      | with 0:
+      1|0 = 1 <-- want 0's so this doesn't work
+
+      | with 1;
+      1|1 = 1 <-- nope
+      0|1 = 1 <-- nope
+
+      & with 1:
+      1&1 = 1 <-- no
+      0&1 = 0
+      & with 1 leaves existing values in place
+
+      & with 0:
+      1&0 = 0
+      0&0 = 0
+      ^^^ that's it, no matter what input, & with 0 will flip bits to 0
+
+      ^ with 1:
+      1^1 = 0
+      0^1 = 1 <-- no
+
+      ^ with 0:
+      1^0 = 1 <-- no
+      0^0 = 0
+
+      0x98FDECBA
+    &      ~0xFF
+    ------------
+      0x98FDEC00
+
+
+  x & ~0xFF = 0x98FDEC00

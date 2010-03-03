@@ -1,0 +1,41 @@
+Using only bit-level and logical operations, write a C expression that is equivalent to x == y. In other words, it will return 1 when x and y are equal and 0 otherwise.
+
+
+  bit operations:
+
+  | with 1:   | with 0:
+  1 | 1 = 1   1 | 0 = 1
+  0 | 1 = 1   0 | 0 = 0
+
+  & with 1:   & with 0:
+  1 & 1 = 1   1 & 0 = 0
+  0 & 1 = 0   1 & 0 = 0
+
+  ^ with 1:   ^ with 0:
+  1 ^ 1 = 0   1 ^ 0 = 1
+  0 ^ 1 = 1   0 ^ 0 = 0
+
+  !(x ^ y) should work
+
+different:
+  x = 1001001010
+  y = 0010010111
+
+      1001001010
+   ^  0010010111
+  --------------
+      1011010101
+     !1011010101 = 0x00
+
+
+equal:
+  x = 1000010101
+  y = 1000010101
+
+      1000010101
+  ^   1000010101
+  --------------
+      0000000000
+     !0000000000 = 0x01
+
+

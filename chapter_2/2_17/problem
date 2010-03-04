@@ -1,0 +1,92 @@
+For the lines labeled A-K in the following listing, convert the
+hexadecimal values (two's complement) shown to the right of the instruction names
+(not shown here, check your book, too much too type!) into their
+decimal equivalents.
+
+A. 0x184
+B. 0x8
+C. 0xc
+D. 0x10
+E. 0xfffffe94
+F. 0x10
+G. 0xfffffea0
+H. 0xffffff10
+I. 0x1c
+J. 0xffffff7c
+K. 0x18
+
+A. 0x184
+
+     1    8    4
+  0001 1000 0100
+  1098 7654 3210
+
+     2^8 + 2^7 + 2^2 = 388
+
+B. 0x8
+
+   0x8 is 0x08 (hex binary values must have two digits to get 8 bits)
+
+     0     8
+  0000  1000 = 8
+
+
+C. 0xc
+
+   0xc = 0x0c (hex binary values must have two digits to get 8 bits)
+
+     0    c
+  0000 1100 =
+       3210
+       2^3 + 2^2 = 12
+
+D. 0x10
+
+     1    0
+  0001 0000 = 2^4 = 16
+
+E. 0xfffffe94
+
+     f    f    f    f    f    e    9    4
+  1111 1111 1111 1111 1111 1110 1001 0100
+          0         0 5432 1098 7654 3210
+                      -2^15 + 2^14 + 2^13 + 2^12 +  2^11 + 2^10 + 2^9 + 2^7 + 2^4 + 2^3 = -364
+
+
+F. 0x10
+
+     1    0
+  0001 0000 = 16
+
+G. 0xfffffea0
+
+     f    f    f    f    f    e    a    0
+  1111 1111 1111 1111 1111 1110 1010 0000
+          0         0 5432 1098 7654 3210
+                      -2^15 + 2^14 + 2^13 + 2^12 +  2^11 + 2^10 + 2^9 + 2^7 + 2^5 = -352
+
+H. 0xffffff10
+
+     f    f    f    f    f    f    1    0
+  1111 1111 1111 1111 1111 1111 0001 0000
+          0         0 5432 1098 7654 3210
+                      -2^15 + 2^14 + 2^13 + 2^12 +  2^11 + 2^10 + 2^9 + 2^8 + 2^4 = -240
+
+I. 0x1c
+
+     1    c
+  0001 1100
+     16 + 8 + 4 = 28
+
+J. 0xffffff7c
+
+     f    f    f    f    f    f    7    c
+  1111 1111 1111 1111 1111 1111 0111 1100
+          0         0 5432 1098 7654 3210
+                      -2^15 + 2^14 + 2^13 + 2^12 +  2^11 + 2^10 + 2^9 + 2^8 + 2^6 + 2^5 + 2^4 + 2^3 + 2^2 = -132
+
+K. 0x18
+
+     1    8
+  0001 1000
+     16 + 8 = 24

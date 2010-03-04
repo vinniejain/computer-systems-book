@@ -1,0 +1,38 @@
+Explain how Equation 2.4 applies to the entires in the table
+you generated when solving Problem 2.18
+
+You simply add 2^w where w = number of bits to convert + 1 to
+the two's complement value to convert to unsigned if two's
+complement of x is a negative value (most signficant
+bit is flipped).
+
+
+  x   T2U₄(x)
+ -------------
+ -8     8       1000    2^3        = 2^4 + -2^3
+                          8        = 16 - 8
+
+ -------------
+ -6    10       1010    2^3 + 2^1  = x + -2^3 + 2^1
+                           10      = x + -6
+                           16      = x
+                           2^4 = 2 * 2 * 2 * 2 = 16
+
+ -------------
+ -4    12       1100     2^3 + 2^2 =  2^4 + -2^3 + 2^2
+                          8  +  4  =  16 +   -8  + 4
+                            12     =  16 + -4 =
+
+ -------------
+ -1    15       1111   2^3 + 2^2 + 2^1 + 2^0 = 2^4 + -2^3 + 2^2 + 2^1 + 2^0
+                        8  +  4  +  2  +  1  =  16 +  -8  +  4  +  2  +  1
+                          12     +     3     =     8      +       7
+                                 15          =         15
+ -------------
+  0     0
+ -------------
+  3     4
+ -------------
+
+
+

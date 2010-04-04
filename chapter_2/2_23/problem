@@ -1,0 +1,126 @@
+Consider the following C functions:
+
+int fun1(unsigned word) {
+  return (int) ((word << 24) >> 24);
+}
+
+int fun2(unsigned word) {
+  return ((int) word << 24) >> 24;
+}
+
+Assume these are executed on a machine with a 32-bit word size that uses two's
+complement aritmetic. Assume also that right shifts of signed values are
+performed arithmetically, while right shifts of unsigned values are performed
+logically.
+
+A. Fill in the following table showing the effect of these functions for several
+example arguments. You will find it more convienient to work with a
+hexidecimal representation. Just remember that hex digits 8 through F have their
+most significant bits equal to 1.
+
+     w             fun1(w)       fun2(w)
+-----------------------------------------------
+0x00000076
+-----------------------------------------------
+0x87654321
+-----------------------------------------------
+0x000000C9
+-----------------------------------------------
+0xEDCBA987
+-----------------------------------------------
+
+B. Describe in words the useful computation each of these functions performs.
+
+Answers
+
+A.
+
+word = 0x00000076
+
+fun2(w)
+
+(int) ((word << 24) >> 24)
+
+word << 24
+
+Each hexadecimal value represents 4 bits.
+Shifting left 24 bits moves 6 hex values to the left adding 0's to the right.
+
+current value is now 0x76000000
+
+(value >> 24)
+
+Still unsigned so performing logical right shift (adding 0's).
+
+return value is 0x00000076
+
+fun1(w)
+
+((int) word << 24) >> 24;
+
+((int) word << 24)
+
+current value is now a signed 0x76000000
+
+Most signficant bit for this value is a 0.
+
+Return value after right shift:
+
+0x00000076
+
+word = 0x87654321
+
+fun1()
+
+value is 0x21000000 after first operation
+value is unsigned
+returned value is 0x00000021
+
+fun2()
+value is 0x21000000 after first operation
+value is signed
+first signficant bit of 2 is 0
+returned value is 0x00000021
+
+word = 0x000000C9
+
+fun1()
+value is 0xC9000000 after first operation
+value is unsigned
+return value is 0x000000C9
+
+fun2()
+value is 0xC9000000 after first operation
+value is signed
+first signficant bit of C is 1
+return value is 0xFFFFFFC9
+
+word = 0xEDCBA987
+
+fun1()
+value is 0x87000000 after first operation
+returned value is 0x00000087
+
+fun2()
+value is 0x87000000 after first operation
+returned value is 0xFFFFFF87
+
+     w             fun1(w)       fun2(w)
+-----------------------------------------------
+0x00000076       0x00000076     0x00000076
+       118              118            118
+-----------------------------------------------
+0x87654321       0x00000021     0x00000021
+2271560481               33             33
+-----------------------------------------------
+0x000000C9       0x000000C9     0xFFFFFFC9
+       201              201            -55
+-----------------------------------------------
+0xEDCBA987       0x00000087     0xFFFFFF87
+3989547399             135            -121
+-----------------------------------------------
+
+B)
+fun1 reduces a number to its lower 8 bits and produces a value of 0-255
+fun2 reduces a number the same but produces a value of -128-127
+

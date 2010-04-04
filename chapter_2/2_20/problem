@@ -1,0 +1,22 @@
+Assuming the expressions are evaluated on a 32-bit machine that uses two's
+complement arithmetic, fill in the following table describing the effect
+of casting and relational operations, in the style of Figure 2.13:
+
+
+Expression                                  Type      Evaluation
+------------------------------------------------------------------
+-2147483647-1 == 2147483648U                unsigned    true
+------------------------------------------------------------------
+-2147483647-1 < -2147483647                 signed       true
+------------------------------------------------------------------
+(unsigned) (-2147483647-1) < -2147483647    unsigned     true
+------------------------------------------------------------------
+-2147483647-1 < 2147483647                  signed       true
+------------------------------------------------------------------
+(unsigned) (-2147483647-1) < 2147483647     unsigned     false
+
+when two's complement negative is converted to unsigned its value
+inreases + 2w, would be much larger than when second value is
+converted to unsigned
+
+------------------------------------------------------------------

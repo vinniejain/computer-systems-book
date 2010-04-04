@@ -1,0 +1,64 @@
+Suppose we truncate a 4-bit value (represented by hex digits 0 through F) to a 3-bit
+value (represented as hex digits 0 through 7). Fill in the table below showing
+the efffect of this truncation for some cases, in terms of the unsigned and two's
+complement interpretations of those bit patterns.
+
+        Hex                   Unsigned           Two's complment
+---------------------- ----------------------- -------------------
+Original    Truncated   Original    Truncated   Original Truncated
+------------------------------------------------------------------
+   0            0          0            0          0         0
+------------------------------------------------------------------
+   2            2          2            2          2         2
+------------------------------------------------------------------
+   9            1          9            1         -7         1
+------------------------------------------------------------------
+   B            3         11            3         -5         3
+------------------------------------------------------------------
+   F            7         15            7         -1        -1
+------------------------------------------------------------------
+
+WorK:
+
+
+2U
+0010
+ 010 = 2
+
+2
+0010
+ 010 = 2
+
+9U
+1001
+ 001 = 1
+9 mod 8 = 1
+
+-7 = -8 + 1
+1001
+ 001 = 1
+-7 mod 8 = 1
+U2T(1) = 1
+
+11U
+1011
+ 011 = 3
+11 mod 8 = 3
+
+-5 = -8 + 4 + 1
+1011
+ 011 = 3
+-5 mod 8 = 3
+U2T(3) = 3
+
+15U
+1111
+ 111 = 4 + 2 + 1 = 7
+15 mod 8 = 7
+
+-1 = -8 + 4 + 2 + 1
+1111
+ 111 = -4 + 2 + 1 = -1
+-1 mod 8 = 7
+U2T(7) = -1
+
